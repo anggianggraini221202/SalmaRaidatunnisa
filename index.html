@@ -187,23 +187,72 @@ p{
   transform:scale(1.03);
 }
 
-/* MUSIC */
-.music-btn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:55px;
-  height:55px;
-  border:none;
-  border-radius:50%;
-  background:white;
-  color:#ff6f91;
-  font-size:20px;
-  cursor:pointer;
-  z-index:999;
-  box-shadow:0 0 15px gold;
+<!-- MUSIC -->
+
+<audio id="music" loop playsinline>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b7e30b5.mp3?filename=beautiful-piano-125453.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">
+🎶
+</button>
+
+<script>
+
+const music = document.getElementById("music");
+
+music.volume = 1.0;
+
+let isPlaying = false;
+
+function toggleMusic(){
+
+  if(!isPlaying){
+
+    music.play()
+    .then(()=>{
+
+      isPlaying = true;
+
+      document.querySelector(".music-btn").innerHTML = "⏸️";
+
+    })
+    .catch((err)=>{
+
+      alert("Klik sekali lagi untuk memutar musik 💖");
+
+    });
+
+  }else{
+
+    music.pause();
+
+    isPlaying = false;
+
+    document.querySelector(".music-btn").innerHTML = "🎶";
+
+  }
+
 }
 
+/* AUTO PLAY SAAT SENTUH LAYAR */
+
+document.body.addEventListener("click", function(){
+
+  if(!isPlaying){
+
+    music.play();
+
+    isPlaying = true;
+
+    document.querySelector(".music-btn").innerHTML = "⏸️";
+
+  }
+
+},{ once:true });
+
+</script>
+  
 /* MOBILE */
 @media(max-width:480px){
 
